@@ -9,7 +9,7 @@ describe('Turn', () => {
     expect(Turn).to.be.a('function');
   });
 
-  it.skip('should hold a user guess and current card', () => {
+  it('should hold a user guess and current card', () => {
     const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
     const currentTurn = new Turn('sea otter', currentCard);
 
@@ -17,7 +17,7 @@ describe('Turn', () => {
     expect(currentTurn.currentCard.id).to.equal(1);
   });
 
-  it.skip('should be able to return the guess', () => {
+  it('should be able to return the guess', () => {
     const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
     const currentTurn = new Turn('sea otter', currentCard);
 
@@ -26,7 +26,7 @@ describe('Turn', () => {
     expect(currentGuess).to.equal(currentTurn.guess);
   });
 
-  it.skip('should be able to return the card', () => {
+  it('should be able to return the card', () => {
     const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
     const currentTurn = new Turn('sea otter', currentCard);
 
@@ -35,7 +35,7 @@ describe('Turn', () => {
     expect(play).to.equal(currentTurn.currentCard);
   });
 
-  it.skip('should check if guess is correct', () => {
+  it('should check if guess is correct', () => {
     const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
     const firstTurn = new Turn('sea otter', currentCard);
     const secondTurn = new Turn('pug', currentCard);
@@ -47,10 +47,13 @@ describe('Turn', () => {
     expect(secondGuess).to.equal(false);
   });
 
-  it.skip('should give feedback', () => {
+  it('should give feedback', () => {
     const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
     const firstTurn = new Turn('sea otter', currentCard);
     const secondTurn = new Turn('pug', currentCard);
+
+    const firstTry = firstTurn.evaluateGuess();
+    const secondTry = secondTurn.evaluateGuess();
 
     const firstGuess = firstTurn.giveFeedback();
     const secondGuess = secondTurn.giveFeedback();

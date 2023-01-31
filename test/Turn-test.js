@@ -18,7 +18,12 @@ describe('Turn', () => {
   it('should be a function', () => {
     expect(Turn).to.be.a('function');
   });
-  // should be an instance of Turn
+
+  it('should be an instance of Turn', () => {
+    expect(firstTurn).to.be.an.instanceOf(Turn);
+    expect(secondTurn).to.be.an.instanceOf(Turn);
+  });
+
   it('should hold a user guess and current card', () => {
     expect(firstTurn.guess).to.equal('object');
     expect(firstTurn.currentCard.id).to.equal(1);

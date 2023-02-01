@@ -63,20 +63,49 @@ describe('Round', () => {
 
   it('should evaluate the guess and return if it is correct', () => {
     currentRound.takeTurn('object');
-    let evaluate = currentRound.currentTurn.evaluateGuess();
 
-    expect(evaluate).to.equal(true);
+    expect(currentRound.correctAnswers).to.equal(1);
+    expect(currentRound.incorrectAnswers.length).to.equal(0);
 
     currentRound.takeTurn('current element');
-    evaluate = currentRound.currentTurn.evaluateGuess();
 
-    expect(evaluate).to.equal(false);
+    expect(currentRound.correctAnswers).to.equal(1);
+    expect(currentRound.incorrectAnswers.length).to.equal(1);
 
     currentRound.takeTurn('callback function');
-    evaluate = currentRound.currentTurn.evaluateGuess();
 
-    expect(evaluate).to.equal(true);
+    expect(currentRound.correctAnswers).to.equal(2);
+    expect(currentRound.incorrectAnswers.length).to.equal(1);
   });
 
-  
+  it('should give feedback for guesses', () => {
+    let feedback = currentRound.takeTurn('object');
+    
+    expect(feedback).to.equal('Correct!')
+    
+    feedback = currentRound.takeTurn('current element');
+
+    expect(feedback).to.equal('Incorrect!')
+  })
+
+  it.skip('should calculate the percentage of correct guesses', () => {
+    currentRound.takeTurn('object');
+    currentRound.takeTurn('current element');
+    currentRound.takeTurn('callback function');
+    currentRound.takeTurn('the accumulator');
+    const winPercent = currentRound.calculatePercentageCorrect();
+
+    expect(winPercent).to.equal('75%');
+  });
+
+  it.skip('should be able to end the round', () => {
+    currentRound.takeTurn('array');
+    currentRound.takeTurn('object');
+    currentRound.takeTurn('current element');
+    currentRound.takeTurn('callback function');
+    currentRound.takeTurn('the accumulator');
+    const endGame = currentRound.endRound();
+
+    expect(endGame).to.equal('** Round over! ** You answered 60% of the questions correctly!')
+  });
 });

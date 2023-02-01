@@ -6,7 +6,7 @@ class Round {
     this.turns = 0;
     this.currentTurn;
     this.correctAnswers = 0;
-    this.incorrectAnswers = 0;
+    this.incorrectAnswers = [];
   }
 
   returnCurrentCard() {
@@ -14,17 +14,14 @@ class Round {
   }
 
   takeTurn(guess) {
-    this.currentTurn = new Turn(guess, this.deck.cards[`${this.correctAnswers}`]);
+    this.currentTurn = new Turn(guess, this.deck.cards[this.correctAnswers]);
     if(this.currentTurn.evaluateGuess()) {
       this.correctAnswers++;
-    } else if(!this.currentTurn.evaluateGuess()) {
-      this.incorrectAnswers++;
+    } else {
+      this.incorrectAnswers.push(this.deck.cards[this.correctAnswers].id);
     }
-    // cannot depend on this.turns for index position because it iterates no matter what
-    // if it's correct, it should iterate once
-    // if it's not correct, it does not iterate
-    // this.currentTurn
     this.turns++;
+    return this.currentTurn.giveFeedback();
   }
 }
 

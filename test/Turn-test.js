@@ -5,41 +5,43 @@ const Turn = require('../src/Turn');
 const Card = require('../src/Card');
 
 describe('Turn', () => {
+  let currentCard;
+  let firstTurn;
+  let secondTurn;
+
+  beforeEach(() => {
+    currentCard = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+    firstTurn = new Turn('object', currentCard);
+    secondTurn = new Turn('array', currentCard);
+  });
+
   it('should be a function', () => {
     expect(Turn).to.be.a('function');
   });
 
-  it('should hold a user guess and current card', () => {
-    const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const currentTurn = new Turn('sea otter', currentCard);
+  it('should be an instance of Turn', () => {
+    expect(firstTurn).to.be.an.instanceOf(Turn);
+    expect(secondTurn).to.be.an.instanceOf(Turn);
+  });
 
-    expect(currentTurn.guess).to.equal('sea otter');
-    expect(currentTurn.currentCard.id).to.equal(1);
+  it('should hold a user guess and current card', () => {
+    expect(firstTurn.guess).to.equal('object');
+    expect(firstTurn.currentCard.id).to.equal(1);
   });
 
   it('should be able to return the guess', () => {
-    const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const currentTurn = new Turn('sea otter', currentCard);
-
-    const currentGuess = currentTurn.returnGuess();
+    const currentGuess = firstTurn.returnGuess();
     
-    expect(currentGuess).to.equal(currentTurn.guess);
+    expect(currentGuess).to.equal('object');
   });
 
   it('should be able to return the card', () => {
-    const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const currentTurn = new Turn('sea otter', currentCard);
-
-    const play = currentTurn.returnCard();
+    const play = firstTurn.returnCard();
     
-    expect(play).to.equal(currentTurn.currentCard);
+    expect(play).to.equal(currentCard);
   });
 
   it('should check if guess is correct', () => {
-    const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const firstTurn = new Turn('sea otter', currentCard);
-    const secondTurn = new Turn('pug', currentCard);
-
     const firstGuess = firstTurn.evaluateGuess();
     const secondGuess = secondTurn.evaluateGuess();
 
@@ -48,12 +50,8 @@ describe('Turn', () => {
   });
 
   it('should give feedback', () => {
-    const currentCard = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const firstTurn = new Turn('sea otter', currentCard);
-    const secondTurn = new Turn('pug', currentCard);
-
-    const firstTry = firstTurn.evaluateGuess();
-    const secondTry = secondTurn.evaluateGuess();
+    firstTurn.evaluateGuess();
+    secondTurn.evaluateGuess();
 
     const firstGuess = firstTurn.giveFeedback();
     const secondGuess = secondTurn.giveFeedback();

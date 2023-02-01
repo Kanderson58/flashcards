@@ -88,7 +88,7 @@ describe('Round', () => {
     expect(feedback).to.equal('Incorrect!')
   })
 
-  it.skip('should calculate the percentage of correct guesses', () => {
+  it('should calculate the percentage of correct guesses', () => {
     currentRound.takeTurn('object');
     currentRound.takeTurn('current element');
     currentRound.takeTurn('callback function');
@@ -98,7 +98,7 @@ describe('Round', () => {
     expect(winPercent).to.equal('75%');
   });
 
-  it.skip('should be able to end the round', () => {
+  it('should be able to end the round', () => {
     currentRound.takeTurn('array');
     currentRound.takeTurn('object');
     currentRound.takeTurn('current element');
@@ -106,6 +106,24 @@ describe('Round', () => {
     currentRound.takeTurn('the accumulator');
     const endGame = currentRound.endRound();
 
-    expect(endGame).to.equal('** Round over! ** You answered 60% of the questions correctly!')
+    expect(endGame).to.equal('** Round over! ** You answered 60% of the questions correctly!');
+  });
+
+  it('should be able to get a perfect score', () => {
+    currentRound.takeTurn('object');
+    currentRound.takeTurn('callback function');
+    currentRound.takeTurn('the accumulator');
+
+    const endGame = currentRound.endRound();
+
+    expect(endGame).to.equal('** Round over! ** You answered 100% of the questions correctly!');
+  });
+
+  it('should be able to have a failing score', () => {
+    currentRound.takeTurn('array');
+    currentRound.takeTurn('function');
+    const endGame = currentRound.endRound();
+
+    expect(endGame).to.equal('** Round over! ** You answered 0% of the questions correctly!');
   });
 });

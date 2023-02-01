@@ -23,6 +23,15 @@ class Round {
     this.turns++;
     return this.currentTurn.giveFeedback();
   }
+
+  calculatePercentageCorrect() {
+    const total = 100 * (this.correctAnswers / (this.correctAnswers + this.incorrectAnswers.length));
+    return `${total}%`
+  }
+
+  endRound() {
+    return `** Round over! ** You answered ${this.calculatePercentageCorrect()} of the questions correctly!`
+  }
 }
 
 module.exports = Round;

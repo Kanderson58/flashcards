@@ -10,28 +10,28 @@ class Round {
   }
 
   returnCurrentCard() {
-    return this.deck.cards[`${this.turns}`];
+    return this.deck.cards[this.turns];
   }
 
   takeTurn(guess) {
-    this.currentTurn = new Turn(guess, this.deck.cards[`${this.turns}`]);  // interpolation needed?
+    this.currentTurn = new Turn;(guess, this.deck.cards[this.turns]);
     if(this.currentTurn.evaluateGuess()) {
       this.correctAnswers++;
     } else {
       this.incorrectAnswers.push(this.deck.cards[this.correctAnswers].id);
-    }
+    };
     this.turns++;
     return this.currentTurn.giveFeedback();
-  }
+  };
 
   calculatePercentageCorrect() {
     const total = 100 * (this.correctAnswers / (this.correctAnswers + this.incorrectAnswers.length));
-    return `${total}%`
-  }
+    return `${total}%`;
+  };
 
   endRound() {
-    return `** Round over! ** You answered ${this.calculatePercentageCorrect()} of the questions correctly!`
-  }
-}
+    return `** Round over! ** You answered ${this.calculatePercentageCorrect()} of the questions correctly!`;
+  };
+};
 
 module.exports = Round;

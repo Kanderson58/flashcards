@@ -7,9 +7,7 @@ const data = require('../src/data');
 const prototypeQuestions = data.prototypeData;
 
 describe('Turn', () => {
-  let currentCard;
-  let firstTurn;
-  let secondTurn;
+  let currentCard, firstTurn, secondTurn;
 
   beforeEach(() => {
     const newDeck = prototypeQuestions.map(question => {

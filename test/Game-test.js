@@ -1,11 +1,9 @@
 const chai = require('chai');
 const expect = chai.expect;
-
 const Card = require('../src/Card');
 const Round = require('../src/Round');
 const Deck = require('../src/Deck');
 const Game = require('../src/Game');
-const data = require('../src/data');
 
 describe('Game', () => {
   let game;
@@ -49,5 +47,5 @@ describe('Game', () => {
     game.createCards();
 
     expect(game.deck.cards[0]).to.be.an.instanceOf(Card);
-  })
+  });
 });

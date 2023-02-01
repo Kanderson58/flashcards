@@ -84,12 +84,12 @@ describe('Round', () => {
   it('should give feedback for guesses', () => {
     let feedback = currentRound.takeTurn('object');
     
-    expect(feedback).to.equal('correct!')
+    expect(feedback).to.equal('correct!');
     
     feedback = currentRound.takeTurn('function');
 
-    expect(feedback).to.equal('incorrect!')
-  })
+    expect(feedback).to.equal('incorrect!');
+  });
 
   it('should calculate the percentage of correct guesses', () => {
     currentRound.takeTurn('object');

@@ -26,6 +26,7 @@ describe('Deck', () => {
   });
 
   it('should contain a deck of cards', () => {
+    expect(deck.cards[0]).to.be.an.instanceOf(Card);
     expect(deck.cards).to.be.an('array');
   });
 

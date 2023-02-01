@@ -32,12 +32,12 @@ describe('Round', () => {
   });
 
   it('should keep track of how many turns have been taken', () => {
-    currentRound.takeTurn();
-    currentRound.takeTurn();
+    currentRound.takeTurn('object');
+    currentRound.takeTurn('callback function');
 
     expect(currentRound.turns).to.equal(2);
 
-    currentRound.takeTurn();
+    currentRound.takeTurn('the accumulator');
 
     expect(currentRound.turns).to.equal(3);
   });
@@ -47,13 +47,36 @@ describe('Round', () => {
 
     expect(currentCard.id).to.equal(1);
 
-    currentRound.takeTurn();
-    currentRound.takeTurn();
+    currentRound.takeTurn('object');
+    currentRound.takeTurn('callback function');
 
     currentCard = currentRound.returnCurrentCard();
 
     expect(currentCard.id).to.equal(3);
   });
 
+  it('should instantiate a turn when a guess is given', () => {
+    currentRound.takeTurn();
 
+    expect(currentRound.currentTurn).to.be.an.instanceOf(Turn);
+  });
+
+  it('should evaluate the guess and return if it is correct', () => {
+    currentRound.takeTurn('object');
+    let evaluate = currentRound.currentTurn.evaluateGuess();
+
+    expect(evaluate).to.equal(true);
+
+    currentRound.takeTurn('current element');
+    evaluate = currentRound.currentTurn.evaluateGuess();
+
+    expect(evaluate).to.equal(false);
+
+    currentRound.takeTurn('callback function');
+    evaluate = currentRound.currentTurn.evaluateGuess();
+
+    expect(evaluate).to.equal(true);
+  });
+
+  
 });

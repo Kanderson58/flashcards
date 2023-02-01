@@ -3,6 +3,8 @@ const expect = chai.expect;
 
 const Turn = require('../src/Turn');
 const Card = require('../src/Card');
+const data = require('../src/data');
+const prototypeQuestions = data.prototypeData;
 
 describe('Turn', () => {
   let currentCard;
@@ -10,7 +12,11 @@ describe('Turn', () => {
   let secondTurn;
 
   beforeEach(() => {
-    currentCard = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+    const newDeck = prototypeQuestions.map(question => {
+      let newCard = new Card(question.id, question.question, question.answers, question.correctAnswer);
+      return newCard;
+    });
+    currentCard = newDeck[0]
     firstTurn = new Turn('object', currentCard);
     secondTurn = new Turn('array', currentCard);
   });
@@ -56,7 +62,7 @@ describe('Turn', () => {
     const firstGuess = firstTurn.giveFeedback();
     const secondGuess = secondTurn.giveFeedback();
 
-    expect(firstGuess).to.equal('Correct!');
-    expect(secondGuess).to.equal('Incorrect!');
+    expect(firstGuess).to.equal('correct!');
+    expect(secondGuess).to.equal('incorrect!');
   });
 });

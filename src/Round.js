@@ -10,11 +10,11 @@ class Round {
   }
 
   returnCurrentCard() {
-    return this.deck.cards[`${this.correctAnswers}`];
+    return this.deck.cards[`${this.turns}`];
   }
 
   takeTurn(guess) {
-    this.currentTurn = new Turn(guess, this.deck.cards[this.correctAnswers]);
+    this.currentTurn = new Turn(guess, this.deck.cards[`${this.turns}`]);  // interpolation needed?
     if(this.currentTurn.evaluateGuess()) {
       this.correctAnswers++;
     } else {

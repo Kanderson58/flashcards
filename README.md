@@ -2,13 +2,14 @@
 
 ## Abstract
 
-Abstract at the top (A sentence or two describing the project)
+This project creates a flashcards game playable in the user's console.  It provides 30 study flashcards and gives 3 options for the user to guess from, and at the end of the game gives a report on how they did.
 
 ## Working App
-A GIF of the working application
+![Game Play](https://user-images.githubusercontent.com/114871395/216381767-071ac31e-1690-4122-8d71-46bccc534cdc.gif)
 
 ## Technologies Used
-Technologies used
+
+I used VS Code, the terminal, and Javascript language to create this project.
 
 ## Setup
 

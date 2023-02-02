@@ -7,14 +7,15 @@ class Round {
     this.currentTurn;
     this.correctAnswers = 0;
     this.incorrectAnswers = [];
-  }
+  };
 
   returnCurrentCard() {
     return this.deck.cards[this.turns];
-  }
+  };
 
   takeTurn(guess) {
-    this.currentTurn = new Turn;(guess, this.deck.cards[this.turns]);
+
+    this.currentTurn = new Turn(guess, this.deck.cards[this.turns]);
     if(this.currentTurn.evaluateGuess()) {
       this.correctAnswers++;
     } else {

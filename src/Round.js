@@ -4,18 +4,20 @@ class Round {
   constructor (deckInst) {
     this.deck = deckInst;
     this.turns = 0;
+    this.currentCard = deckInst[0];
     this.currentTurn;
     this.correctAnswers = 0;
     this.incorrectAnswers = [];
   };
 
   returnCurrentCard() {
-    return this.deck.cards[this.turns];
+    this.currentCard = this.deck.cards[this.turns];
+    return this.currentCard;
   };
 
   takeTurn(guess) {
-
-    this.currentTurn = new Turn(guess, this.deck.cards[this.turns]);
+    this.returnCurrentCard();
+    this.currentTurn = new Turn(guess, this.currentCard);
     if(this.currentTurn.evaluateGuess()) {
       this.correctAnswers++;
     } else {
@@ -26,7 +28,7 @@ class Round {
   };
 
   calculatePercentageCorrect() {
-    const total = 100 * (this.correctAnswers / (this.correctAnswers + this.incorrectAnswers.length));
+    const total = Math.floor(100 * (this.correctAnswers / (this.correctAnswers + this.incorrectAnswers.length)));
     return `${total}%`;
   };
 

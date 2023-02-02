@@ -29,9 +29,9 @@ describe('Round', () => {
   });
 
   it('should start with the first card in the deck', () => {
-    let card = currentRound.returnCurrentCard();
+    currentRound.returnCurrentCard();
 
-    expect(card.id).to.equal(1);
+    expect(currentRound.currentCard.id).to.equal(1);
   });
 
   it('should keep track of how many turns have been taken', () => {

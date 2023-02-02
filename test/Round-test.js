@@ -5,15 +5,18 @@ const Round = require('../src/Round');
 const Turn = require('../src/Turn');
 const Deck = require('../src/Deck');
 const Card = require('../src/Card');
+const data = require('../src/data');
+const prototypeQuestions = data.prototypeData;
 
 describe('Round', () => {
   let currentRound, deck;
 
   beforeEach(() => {
-    const card1 = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = new Card(2, 'What do iterator methods take in as their first argument?', ['callback function', 'current element', 'an array'], 'callback function');
-    const card3 = new Card(3, 'What does the callback function for reduce() return?', ['the accumulator', 'the current element', 'the initializer'], 'the accumulator');
-    deck = new Deck([card1, card2, card3]);
+    const newDeck = prototypeQuestions.map(question => {
+      let newCard = new Card(question.id, question.question, question.answers, question.correctAnswer);
+      return newCard;
+    });
+    deck = new Deck(newDeck);
     currentRound = new Round(deck);
   });
 
@@ -67,12 +70,12 @@ describe('Round', () => {
     expect(currentRound.correctAnswers).to.equal(1);
     expect(currentRound.incorrectAnswers.length).to.equal(0);
 
-    currentRound.takeTurn('current element');
+    currentRound.takeTurn('function');
 
     expect(currentRound.correctAnswers).to.equal(1);
     expect(currentRound.incorrectAnswers.length).to.equal(1);
 
-    currentRound.takeTurn('callback function');
+    currentRound.takeTurn('mutator method');
 
     expect(currentRound.correctAnswers).to.equal(2);
     expect(currentRound.incorrectAnswers.length).to.equal(1);
@@ -81,29 +84,29 @@ describe('Round', () => {
   it('should give feedback for guesses', () => {
     let feedback = currentRound.takeTurn('object');
     
-    expect(feedback).to.equal('Correct!')
+    expect(feedback).to.equal('correct!');
     
-    feedback = currentRound.takeTurn('current element');
+    feedback = currentRound.takeTurn('function');
 
-    expect(feedback).to.equal('Incorrect!')
-  })
+    expect(feedback).to.equal('incorrect!');
+  });
 
   it('should calculate the percentage of correct guesses', () => {
     currentRound.takeTurn('object');
-    currentRound.takeTurn('current element');
-    currentRound.takeTurn('callback function');
-    currentRound.takeTurn('the accumulator');
+    currentRound.takeTurn('array');
+    currentRound.takeTurn('iteration method');
+    currentRound.takeTurn('accessor method');
     const winPercent = currentRound.calculatePercentageCorrect();
 
     expect(winPercent).to.equal('75%');
   });
 
   it('should be able to end the round', () => {
-    currentRound.takeTurn('array');
     currentRound.takeTurn('object');
-    currentRound.takeTurn('current element');
-    currentRound.takeTurn('callback function');
-    currentRound.takeTurn('the accumulator');
+    currentRound.takeTurn('array');
+    currentRound.takeTurn('accessor method');
+    currentRound.takeTurn('iteration method');
+    currentRound.takeTurn('iteration method');
     const endGame = currentRound.endRound();
 
     expect(endGame).to.equal('** Round over! ** You answered 60% of the questions correctly!');
@@ -111,8 +114,8 @@ describe('Round', () => {
 
   it('should be able to get a perfect score', () => {
     currentRound.takeTurn('object');
-    currentRound.takeTurn('callback function');
-    currentRound.takeTurn('the accumulator');
+    currentRound.takeTurn('array');
+    currentRound.takeTurn('mutator method');
 
     const endGame = currentRound.endRound();
 
